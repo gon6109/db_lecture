@@ -14,18 +14,24 @@ try {
     $conn = new mysqli("localhost", "s1811424", "s1811424new", "s1811424");
     $conn->set_charset("utf8");
     $sql = 'select * from user where mail_address = "' . $_POST['email'] . '"';
-    $res = $conn->query($sql);
+    if ($temp = $conn->query($sql))
+        $res = $temp->fetch_assoc();
+    else {
+        $url = './login_user_form.php';
+        header('Location: ' . $url, true, 401);
+        exit;
+    }
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL;
 }
 
-if (!isset($res['email'])) {
+if (!isset($res['mail_address'])) {
     $url = './login_user_form.php';
-    header('Location: ' . $url, true, 401);
+    header('Location: ' . $url, true, 402);
     exit;
 }
 
-if (password_verify($_POST['password'], $res['password'])) {
+if (password_verify($_POST['pass'], crypt($res['pass']))) {
     session_regenerate_id(true);
     $_SESSION['ID'] = $res['id'];
     $_SESSION['MANAGER'] = false;
@@ -35,6 +41,6 @@ if (password_verify($_POST['password'], $res['password'])) {
     exit;
 } else {
     $url = './login_user_form.php';
-    header('Location: ' . $url, true, 401);
+    header('Location: ' . $url, true, 403);
     exit;
 }

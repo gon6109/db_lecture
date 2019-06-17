@@ -5,7 +5,7 @@
     <body>
         <h1>ログイン</h1>
         <form action="login_user.php" method="POST">
-            <div>メールアドレス<input type="text" name="address"></div>
+            <div>メールアドレス<input type="text" name="email"></div>
             <div>パスワード<input type="password" name="pass"></div>
             <div><input type="submit" name="Login"></div>
         </form>
