@@ -1,28 +1,47 @@
-<html>
-    <head>
-        <title>ユーザ一覧</title>
-    </head>
-    <body>
-        <table border="1">
 <?php
-$conn = new mysqli("localhost", "s1811424", "s1811424new", "s1811424");
-$conn->set_charset("utf8");
-$sql = "SELECT * FROM user";
-$res = $conn->query($sql);
-print("<tr>");
-for ($i=0; $i < $res->field_count; $i++) { 
-    print("<td>" . $res->fetch_field_direct($i)->name . "</td>");
-}
-print("</tr>");
 
-while ($row = $res->fetch_array()) {
-    print("<tr>");
-    for ($i=0; $i < $res->field_count; $i++) { 
-        print("<td>" . $row[$i] . "</td>");
+require_once('env.php');
+
+function GetUserName($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from user where  id = ' . $id;
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['name'];
+    } else {
+        $result = null;
     }
-    print("</tr>");
+    $conn->close();
+    return $result;
 }
-?>
-        </table>
-    </body>
-</html>
+
+function GetEmail($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from user where  id = ' . $id;
+    $res = $conn->query($sql);
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['mail_address'];
+    } else {
+        $result = null;
+    }
+    $conn->close();
+    return $result;
+}
+
+function GetUserType($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from user where  id = ' . $id;
+    $res = $conn->query($sql);
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['user_type'];
+    } else {
+        $result = null;
+    }
+    $conn->close();
+    return $result;
+}
