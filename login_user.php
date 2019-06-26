@@ -31,7 +31,7 @@ if (!isset($res['mail_address'])) {
     exit;
 }
 
-if (password_verify($_POST['pass'], crypt($res['pass']))) {
+if ($_POST['pass'] == $res['password']) {
     session_regenerate_id(true);
     $_SESSION['ID'] = $res['id'];
     $_SESSION['MANAGER'] = false;

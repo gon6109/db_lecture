@@ -14,6 +14,7 @@ require_once('env.php');
             <div>タイトル<input type="text" name="title"></div>
             <div>進捗<input type="text" name="progress"></div>
             <div>優先度<input type="text" name="priority"></div>
+            <div><input type="date" name="deadline"></div>
             <div>担当者
                 <select name="user_id">
 <?php
