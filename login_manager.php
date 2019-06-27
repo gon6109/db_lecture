@@ -12,7 +12,7 @@ try {
         $res = $temp->fetch_assoc();
     } else {
         $url = './login_manager_form.php';
-        header('Location: ' . $url, true, 401);
+        header('Location: ' . $url, true, 301);
         exit;
     }
 } catch (\Exception $e) {
@@ -21,7 +21,7 @@ try {
 
 if (!isset($res['mail_address'])) {
     $url = './login_manager_form.php';
-    header('Location: ' . $url, true, 401);
+    header('Location: ' . $url, true, 301);
     exit;
 }
 
@@ -36,7 +36,7 @@ if ($_POST['pass'] == $res['password']) {
 
 } else {
     $url = './login_manager_form.php';
-    header('Location: ' . $url, true, 401);
+    header('Location: ' . $url, true, 301);
     exit;
 }
 

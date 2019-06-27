@@ -21,7 +21,7 @@ CREATE TABLE task
     id int auto_increment primary key, 
     title varchar(10) not null, 
     create_date date not null, 
-    update_date date not null,
+    update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deadline date, 
     priority int, 
     progress int, 
@@ -34,8 +34,9 @@ Create TABLE comment
 (
     id int auto_increment primary key, 
     task_id int not null,
+    user_id int not null,
     comment text,
-    create_date date not null
+    create_date timestamp not null DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE status

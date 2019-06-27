@@ -26,36 +26,43 @@ $(function() {
     </head>
     <body>
         <h1>こんにちは <?php print(GetUserName($_SESSION['ID'])); ?> さん </h1>
+        <a href="update_user_form.php">ユーザ設定</a>
         <form action="menu.php" method="GET">
             <select name="option"></select>
         </form>
-        <table id="task" class="tablesorter-blue">
+        <form><table id="task" class="tablesorter-blue">
 <?php
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $conn->set_charset("utf8");
-$sql = "select task.title,task.deadline,task.priority,task.progress,status.name,user.name from task,status,user where task.status_id = status.id and task.user_id = user.id";
+$sql = "select task.id,task.title,task.deadline,task.priority,task.progress,status.name,user.name from task,status,user where task.status_id = status.id and task.user_id = user.id";
 $res = $conn->query($sql);
 print("<thead><tr>");
 for ($i=0; $i < $res->field_count; $i++) {
-    if ($i == 4)
+    if ($i == 5)
         print("<td>Status</td>");
-    else if ($i == 5)
+    else if ($i == 6)
         print("<td>User</td>");
     else
         print("<td>" . $res->fetch_field_direct($i)->name . "</td>");
 }
+print("<td>削除</td>");
 print("</tr></thead>");
 print("<tbody>");
 while ($row = $res->fetch_array()) {
     print("<tr>");
     for ($i=0; $i < $res->field_count; $i++) {
-        print("<td>" . $row[$i] . "</td>");
+        if ($i == 1) {
+            print('<td><a href="detail_task.php?id='. $row[0] . '">' . $row[$i] . "</a></td>");
+        }
+        else
+            print("<td>" . $row[$i] . "</td>");
     }
+    print('<td><button formaction="delete_task.php" formmethod="POST" name="id" value="' . $row[0] . '">削除</button></td>');
     print("</tr>");
 }
 print("</tbody>");
 ?>
-        </table>
+        </table></form>
         <div><a href="add_task_form.php">タスク追加</a></div>
     </body>
 </html>

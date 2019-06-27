@@ -18,11 +18,11 @@ $(function() {
     <body>
         <h1>管理者画面</h1>
         <h2>ユーザ一覧</h2>
-        <table id="user" class="tablesorter-blue">
+            <form><table id="user" class="tablesorter-blue">
 <?php
 $conn = new mysqli("localhost", "s1811424", "s1811424new", "s1811424");
 $conn->set_charset("utf8");
-$sql = "SELECT user.id, user.name, user.mail_address, user.user_type FROM user";
+$sql = "SELECT user.id, user.name, user.mail_address, user.password FROM user WHERE user.user_type='GUEST'";
 $res = $conn->query($sql);
 print("<thead><tr>");
 for ($i=0; $i < $res->field_count; $i++) { 
@@ -38,11 +38,12 @@ while ($row = $res->fetch_array()) {
     for ($i=0; $i < $res->field_count; $i++) { 
         print("<td>" . $row[$i] . "</td>");
     }
-    <
+    print('<td><button formaction="delete_user.php" formmethod="POST" name="id" value="' . $row[0] . '">削除</button></td>');
     print("</tr>");
 }
 print("</tbody>");
 ?>
-        </table>
+        </table></form>
+        <p>テスト用にパスワードを載せてます</P>
     </body>
 </html>

@@ -11,5 +11,6 @@
             <div>パスワード<input type="password" name="pass"></div>
             <div><input type="submit" name="Login"></div>
         </form>
+        <p>テスト用にadmin/adminで入れます</p>
     </body>
 </html>

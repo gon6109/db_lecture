@@ -20,7 +20,7 @@ require_once('env.php');
 <?php
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $conn->set_charset("utf8");
-$sql = 'select * from user';
+$sql = 'select * from user where user_type="GUEST"';
 $res = $conn->query($sql);
 while ($row = $res->fetch_assoc()) {
     print('<option value="' . $row['id'] . '">' . $row['name'] . '</option>');
@@ -43,6 +43,7 @@ $conn->close();
 ?>
                 </select>
             </div>
+            <div>詳細<textarea  name="detail"></textarea></div>
             <div><input type="submit" name="追加"></div>
         </form>
     </body>

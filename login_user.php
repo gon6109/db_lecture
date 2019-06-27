@@ -6,7 +6,7 @@ session_start();
 
 if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
     $url = './login_user_form.php';
-    header('Location: ' . $url, true, 400);
+    header('Location: ' . $url, true, 301);
     exit;
 }
 
@@ -18,7 +18,7 @@ try {
         $res = $temp->fetch_assoc();
     else {
         $url = './login_user_form.php';
-        header('Location: ' . $url, true, 401);
+        header('Location: ' . $url, true, 301);
         exit;
     }
 } catch (\Exception $e) {
@@ -27,7 +27,7 @@ try {
 
 if (!isset($res['mail_address'])) {
     $url = './login_user_form.php';
-    header('Location: ' . $url, true, 402);
+    header('Location: ' . $url, true, 301);
     exit;
 }
 
@@ -41,6 +41,6 @@ if ($_POST['pass'] == $res['password']) {
     exit;
 } else {
     $url = './login_user_form.php';
-    header('Location: ' . $url, true, 403);
+    header('Location: ' . $url, true, 301);
     exit;
 }

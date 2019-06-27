@@ -1,28 +1,129 @@
-<html>
-    <head>
-        <title>タスク一覧</title>
-    </head>
-    <body>
-        <table border="1">
 <?php
-$conn = new mysqli("localhost", "s1811424", "s1811424new", "s1811424");
-$conn->set_charset("utf8");
-$sql = "SELECT * FROM task";
-$res = $conn->query($sql);
-print("<tr>");
-for ($i=0; $i < $res->field_count; $i++) { 
-    print("<td>" . $res->fetch_field_direct($i)->name . "</td>");
-}
-print("</tr>");
 
-while ($row = $res->fetch_array()) {
-    print("<tr>");
-    for ($i=0; $i < $res->field_count; $i++) { 
-        print("<td>" . $row[$i] . "</td>");
+require_once('env.php');
+
+function GetTitle($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from task where  id = ' . $id;
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['title'];
+    } else {
+        $result = null;
     }
-    print("</tr>");
+    $conn->close();
+    return $result;
 }
-?>
-        </table>
-    </body>
-</html>
+
+function GetCreateDate($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from task where  id = ' . $id;
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['create_date'];
+    } else {
+        $result = null;
+    }
+    $conn->close();
+    return $result;
+}
+
+function GetUpdateDate($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from task where  id = ' . $id;
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['update_date'];
+    } else {
+        $result = null;
+    }
+    $conn->close();
+    return $result;
+}
+
+function GetDeadline($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from task where  id = ' . $id;
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['deadline'];
+    } else {
+        $result = null;
+    }
+    $conn->close();
+    return $result;
+}
+
+function GetPriority($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from task where  id = ' . $id;
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['priority'];
+    } else {
+        $result = null;
+    }
+    $conn->close();
+    return $result;
+}
+
+function GetProgress($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from task where  id = ' . $id;
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['progress'];
+    } else {
+        $result = null;
+    }
+    $conn->close();
+    return $result;
+}
+
+function GetUserId($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from task where  id = ' . $id;
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['user_id'];
+    } else {
+        $result = null;
+    }
+    $conn->close();
+    return $result;
+}
+
+function GetStatusId($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from task where  id = ' . $id;
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['status_id'];
+    } else {
+        $result = null;
+    }
+    $conn->close();
+    return $result;
+}
+
+function GetDetail($id)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn->set_charset("utf8");
+    $sql = 'select * from task where  id = ' . $id;
+    if ($res = $conn->query($sql)) {
+        $result = $res->fetch_assoc()['detail'];
+    } else {
+        $result = null;
+    }
+    $conn->close();
+    return $result;
+}
