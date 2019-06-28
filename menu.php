@@ -5,6 +5,15 @@ session_start();
 require_once('env.php');
 require_once('user.php');
 
+$status = NULL;
+$words = [];
+if (array_key_exists('status', $_GET)) {
+    $status = $_GET['status'];
+}
+if (array_key_exists('word', $_GET)) {
+    $words = preg_split("/[\s　]+/", $_GET['word']);
+}
+
 ?>
 
 <html>
@@ -27,14 +36,42 @@ $(function() {
     <body>
         <h1>こんにちは <?php print(GetUserName($_SESSION['ID'])); ?> さん </h1>
         <a href="update_user_form.php">ユーザ設定</a>
+        <h2>検索</h2>
         <form action="menu.php" method="GET">
-            <select name="option"></select>
-        </form>
-        <form><table id="task" class="tablesorter-blue">
+            <div>Status<select name="status">
 <?php
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $conn->set_charset("utf8");
-$sql = "select task.id,task.title,task.deadline,task.priority,task.progress,status.name,user.name from task,status,user where task.status_id = status.id and task.user_id = user.id";
+$sql = 'select * from status';
+$res = $conn->query($sql);
+print('<option value="" selected>未選択</option>');
+while ($row = $res->fetch_assoc()) {
+    print('<option value="' . $row['id'] .'">' . $row['name'] . '</option>');
+}
+$conn->close();
+?>
+            </select></div>
+            <div><input type="text" placeholder="自由ワード検索 スペースでand検索" name="word"></div>
+            <div><input type="submit" value="検索"></div>
+        </form>
+        <form><table id="task" class="tablesorter-blue">
+<?php
+
+function GetSQL($status, $words)
+{
+    $res = "select task.id,task.title,task.deadline,task.priority,task.progress,status.name,user.name from task,status,user where task.status_id = status.id and task.user_id = user.id";
+    if ($status != NULL) {
+        $res .= " and task.status_id = " . $status;
+    }
+    foreach ($words as $item) {
+        $res .= ' and (task.title like "%' . $item . '%" or task.detail like "%' . $item . '%" or user.name = "%' . $item . '%")';
+    }
+    return $res;
+}
+
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$conn->set_charset("utf8");
+$sql = GetSQL($status, $words);
 $res = $conn->query($sql);
 print("<thead><tr>");
 for ($i=0; $i < $res->field_count; $i++) {

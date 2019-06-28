@@ -18,4 +18,6 @@ function alert_log($data)
     echo 'alert('. $data .')';
     echo '</script>';
 }
+
+
 ?>

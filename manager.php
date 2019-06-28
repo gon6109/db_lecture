@@ -44,6 +44,7 @@ while ($row = $res->fetch_array()) {
 print("</tbody>");
 ?>
         </table></form>
+        <p><a href="add_user_form.php">ユーザ追加</a></p>
         <p>テスト用にパスワードを載せてます</P>
     </body>
 </html>
