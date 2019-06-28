@@ -3,23 +3,19 @@
 require_once("user.php");
 require_once("task.php");
 require_once("status.php");
-session_start();
+require_once("head.php");
 
-if (!array_key_exists('ID', $_SESSION) || $_SESSION['MANAGER'])
-{
-    session_abort();
-    $url = './login_user_form.php';
-    header('Location: ' . $url, true, 301);
-    exit;
-}
+require_once('check_user.php');
+CheckUser(false);
 
 ?>
 
 <html>
     <head>
-        <title>タスク編集</title>
+        <?php CreateHead('タスク編集'); ?>
     </head>
     <body>
+        <?php require_once('header.php'); ?>
         <h1>タスク編集</h1>
         <form action="update_task.php" method="POST">
             <div>タイトル<input type="text" name="title" value="<?php echo GetTitle($_GET['id']);?>"></div>
@@ -54,7 +50,7 @@ $conn->close();
 ?>
                 </select>
             </div>
-            <div>詳細<textarea name="detail"><?php echo nl2br(GetDetail($_GET['id'])); ?></textarea></div>
+            <div>詳細<textarea name="detail"><?php echo GetDetail($_GET['id']); ?></textarea></div>
             <input type="hidden" name="task_id" value="<?php echo $_GET['id']; ?>">
             <div><input type="submit" name="追加"></div>
         </form>

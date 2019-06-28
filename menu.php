@@ -1,9 +1,11 @@
 <?php
 
-session_start();
+require_once('check_user.php');
+CheckUser(false);
 
 require_once('env.php');
 require_once('user.php');
+require_once('head.php');
 
 $status = NULL;
 $words = [];
@@ -11,14 +13,14 @@ if (array_key_exists('status', $_GET)) {
     $status = $_GET['status'];
 }
 if (array_key_exists('word', $_GET)) {
-    $words = preg_split("/[\s　]+/", $_GET['word']);
+    $words = preg_split("/[\s]+/", $_GET['word']);
 }
 
 ?>
 
 <html>
     <head>
-        <title>メニュー</title>
+        <?php CreateHead('進捗ありますか'); ?>
         <!-- choose a theme file -->
         <link rel="stylesheet" href="tablesorter/css/theme.blue.css">
         <!-- load jQuery and tablesorter scripts -->
@@ -34,11 +36,28 @@ $(function() {
         </script>
     </head>
     <body>
-        <h1>こんにちは <?php print(GetUserName($_SESSION['ID'])); ?> さん </h1>
-        <a href="update_user_form.php">ユーザ設定</a>
-        <h2>検索</h2>
-        <form action="menu.php" method="GET">
-            <div>Status<select name="status">
+        <?php require_once('header.php'); ?>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                        <div class="box">
+                            <div class="level">
+                                <div class="level-left">
+                                    <h1 class="title is-3">タスク一覧</h1>
+                                </div>
+                                <div class="level-right">
+                                    <a href="add_task_form.php">
+                                        <span class="icon is-large has-text-primary" style="color: limegreen">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                            <form action="menu.php" method="GET" class="content">
+                                <div class="field">
+                                    <label class="label">Status</label>
+                                    <div class="control"><div class="select"><select name="status">
 <?php
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $conn->set_charset("utf8");
@@ -50,11 +69,20 @@ while ($row = $res->fetch_assoc()) {
 }
 $conn->close();
 ?>
-            </select></div>
-            <div><input type="text" placeholder="自由ワード検索 スペースでand検索" name="word"></div>
-            <div><input type="submit" value="検索"></div>
-        </form>
-        <form><table id="task" class="tablesorter-blue">
+                                    </select></div></div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label">Words</label>
+                                    <div class="control"><input type="text" placeholder="自由ワード検索 スペースでand検索" name="word" class="input"></div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label"></label>
+                                    <div class="control"><button class="button is-primary">検索</button></div>
+                                </div>
+                            </form>
+                            <div class="content"><table id="task" class="table is-striped is-fullwidth"><form>
 <?php
 
 function GetSQL($status, $words)
@@ -64,7 +92,7 @@ function GetSQL($status, $words)
         $res .= " and task.status_id = " . $status;
     }
     foreach ($words as $item) {
-        $res .= ' and (task.title like "%' . $item . '%" or task.detail like "%' . $item . '%" or user.name = "%' . $item . '%")';
+        $res .= ' and (task.title like "%' . $item . '%" or task.detail like "%' . $item . '%" or user.name like "%' . $item . '%")';
     }
     return $res;
 }
@@ -72,6 +100,7 @@ function GetSQL($status, $words)
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $conn->set_charset("utf8");
 $sql = GetSQL($status, $words);
+console_log($sql);
 $res = $conn->query($sql);
 print("<thead><tr>");
 for ($i=0; $i < $res->field_count; $i++) {
@@ -94,12 +123,16 @@ while ($row = $res->fetch_array()) {
         else
             print("<td>" . $row[$i] . "</td>");
     }
-    print('<td><button formaction="delete_task.php" formmethod="POST" name="id" value="' . $row[0] . '">削除</button></td>');
+    print('<td><button formaction="delete_task.php" formmethod="POST" name="id" value="' . $row[0] . '" class="button is-danger">削除</button></td>');
     print("</tr>");
 }
 print("</tbody>");
 ?>
-        </table></form>
-        <div><a href="add_task_form.php">タスク追加</a></div>
+                            </form></table></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </body>
 </html>

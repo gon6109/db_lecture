@@ -2,7 +2,8 @@
 
 require_once('env.php');
 
-session_start();
+require_once('check_user.php');
+CheckUser(false);
 
 if ($_POST['pass'] != $_POST['repass'])
 {

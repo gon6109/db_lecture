@@ -28,7 +28,7 @@ if (!isset($res['mail_address'])) {
 if ($_POST['pass'] == $res['password']) {
     session_regenerate_id(true); 
     $_SESSION['ID'] = $res['id'];
-    $_SESSION['MANAGER'] = false;
+    $_SESSION['MANAGER'] = true;
     
     $url = './manager.php';
     header('Location: ' . $url, true, 301);

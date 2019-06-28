@@ -1,6 +1,7 @@
 <?php
 
-session_start();
+require_once('check_user.php');
+CheckUser(true);
 
 function random($length = 8)
 {

@@ -1,14 +1,16 @@
 <?php
 
 require_once('env.php');
+require_once('head.php');
 
 ?>
 
 <html>
     <head>
-        <title>タスク追加</title>
+        <?php CreateHead('タスク追加'); ?>
     </head>
     <body>
+        <?php require_once('header.php') ?>
         <h1>タスク追加</h1>
         <form action="add_task.php" method="POST">
             <div>タイトル<input type="text" name="title"></div>

@@ -1,23 +1,18 @@
 <?php
 
 require_once("user.php");
-session_start();
-
-if (!array_key_exists('ID', $_SESSION) || $_SESSION['MANAGER'])
-{
-    session_abort();
-    $url = './login_user_form.php';
-    header('Location: ' . $url, true, 301);
-    exit;
-}
+require_once('head.php');
+require_once('check_user.php');
+CheckUser(false);
 
 ?>
 
 <html>
     <head>
-        <title>ユーザ設定</title>
+        <?php CreateHead('ユーザ設定'); ?>
     </head>
     <body>
+        <?php require_once('header.php'); ?>
         <h1>
             ユーザ設定
         </h1>

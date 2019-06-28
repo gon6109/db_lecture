@@ -6,7 +6,8 @@ require_once('user.php');
 require_once('status.php');
 require_once('comment.php');
 
-session_start();
+require_once('check_user.php');
+CheckUser(false);
 
 ?>
 

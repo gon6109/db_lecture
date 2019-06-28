@@ -1,6 +1,15 @@
+<?php
+
+require_once('head.php');
+
+require_once('check_user.php');
+CheckUser(true);
+
+?>
+
 <html>
     <head>
-        <title>管理者画面</title>
+        <?php CreateHead('管理者画面'); ?>
         <!-- choose a theme file -->
         <link rel="stylesheet" href="tablesorter/css/theme.blue.css">
         <!-- load jQuery and tablesorter scripts -->
@@ -16,6 +25,7 @@ $(function() {
         </script>
     </head>
     <body>
+        <?php require_once('header.php'); ?>
         <h1>管理者画面</h1>
         <h2>ユーザ一覧</h2>
             <form><table id="user" class="tablesorter-blue">

@@ -2,7 +2,8 @@
 
 require_once('env.php');
 
-session_start();
+require_once('check_user.php');
+CheckUser(false);
 
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $conn->set_charset("utf8");
