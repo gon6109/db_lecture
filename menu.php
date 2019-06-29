@@ -44,12 +44,12 @@ $(function() {
                         <div class="box">
                             <div class="level">
                                 <div class="level-left">
-                                    <h1 class="title is-3">タスク一覧</h1>
+                                    <h1 class="title is-3">タスク</h1>
                                 </div>
                                 <div class="level-right">
                                     <a href="add_task_form.php">
-                                        <span class="icon is-large has-text-primary" style="color: limegreen">
-                                            <i class="fas fa-plus-circle"></i>
+                                        <span class="icon is-large has-text-success">
+                                            <i class="fas fa-plus-circle fa-3x"></i>
                                         </span>
                                     </a>
                                 </div>
@@ -78,7 +78,6 @@ $conn->close();
                                 </div>
 
                                 <div class="field">
-                                    <label class="label"></label>
                                     <div class="control"><button class="button is-primary">検索</button></div>
                                 </div>
                             </form>

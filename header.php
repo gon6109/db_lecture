@@ -3,13 +3,13 @@
 require_once('user.php');
 
 ?>
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
             <a href="menu.php" class="navbar-item">進捗どうですか</a>
     </div>
     <div class="navbar-menu">
         <div class="navbar-end">
-        <?php
+<?php
 if ($_SESSION == NULL || !array_key_exists('ID', $_SESSION)) {
     echo '<div class="navbar-item">';
     echo '<span class="icon">';
@@ -29,7 +29,7 @@ else
     echo '管理者としてログイン中';
     echo '</div>';
 }
-            ?>
+?>
         </div>
     </div>
 </nav>
