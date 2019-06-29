@@ -28,6 +28,10 @@ body {
     margin-top: auto;
 }
 
-#footer *{
+#footer :not(a){
+    color: #f5f5f5;
+}
+
+#how :not(a):not(i):not(span){
     color: #f5f5f5;
 }

@@ -5,7 +5,7 @@ require_once('user.php');
 ?>
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a href="." class="navbar-item"><strong>進捗どうですか？</strong></a>
+        <a href="." class="navbar-item"><strong>進捗ありますか？</strong></a>
     </div>
     <div class="navbar-menu">
         <div class="navbar-start">

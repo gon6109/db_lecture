@@ -90,7 +90,7 @@ $conn->close();
                                 <input type="hidden" name="task_id" value="<?php echo $_GET['id']; ?>">
                                 <div class="field">
                                     <div class="control">
-                                        <input class="button is-link" type="submit" value="追加">
+                                        <input class="button is-link" type="submit" value="変更">
                                     </div>
                                 </div>
                             </form>
