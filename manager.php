@@ -26,9 +26,14 @@ $(function() {
     </head>
     <body>
         <?php require_once('header.php'); ?>
-        <h1>管理者画面</h1>
-        <h2>ユーザ一覧</h2>
-            <form><table id="user" class="tablesorter-blue">
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                        <div class="box">
+                            <h1 class="title is-3">管理者画面</h1>
+                            <h2 class="title is-4">ユーザ一覧</h2>
+                                <form><table id="user" class="table is-striped is-fullwidth">
 <?php
 $conn = new mysqli("localhost", "s1811424", "s1811424new", "s1811424");
 $conn->set_charset("utf8");
@@ -48,13 +53,18 @@ while ($row = $res->fetch_array()) {
     for ($i=0; $i < $res->field_count; $i++) { 
         print("<td>" . $row[$i] . "</td>");
     }
-    print('<td><button formaction="delete_user.php" formmethod="POST" name="id" value="' . $row[0] . '">削除</button></td>');
+    print('<td><button formaction="delete_user.php" formmethod="POST" name="id" value="' . $row[0] . '" class="button is-danger">削除</button></td>');
     print("</tr>");
 }
 print("</tbody>");
 ?>
-        </table></form>
-        <p><a href="add_user_form.php">ユーザ追加</a></p>
-        <p>テスト用にパスワードを載せてます</P>
+                            </table></form>
+                            <p><a href="add_user_form.php">ユーザ追加</a></p>
+                            <p>テスト用にパスワードを載せてます</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </body>
 </html>

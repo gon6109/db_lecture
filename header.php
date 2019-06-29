@@ -5,17 +5,16 @@ require_once('user.php');
 ?>
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-            <a href="menu.php" class="navbar-item">進捗どうですか</a>
+        <a href="." class="navbar-item"><strong>進捗どうですか？</strong></a>
     </div>
     <div class="navbar-menu">
+        <div class="navbar-start">
+            <a href="menu.php" class="navbar-item">メニュー</a>
+        </div>
         <div class="navbar-end">
 <?php
 if ($_SESSION == NULL || !array_key_exists('ID', $_SESSION)) {
-    echo '<div class="navbar-item">';
-    echo '<span class="icon">';
-    echo '<a href="login_user_form.php" class="fa fa-user">ログイン</a>';
-    echo '</span>';
-    echo '</div>';
+    echo '<a class="navbar-item" href="login_user_form.php">ログイン</a>';
 }
 else if (!$_SESSION['MANAGER']){
     echo '<div class="navbar-item">';

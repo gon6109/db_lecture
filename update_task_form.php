@@ -16,14 +16,41 @@ CheckUser(false);
     </head>
     <body>
         <?php require_once('header.php'); ?>
-        <h1>タスク編集</h1>
-        <form action="update_task.php" method="POST">
-            <div>タイトル<input type="text" name="title" value="<?php echo GetTitle($_GET['id']);?>"></div>
-            <div>進捗<input type="text" name="progress" value="<?php echo GetProgress($_GET['id']);?>"></div>
-            <div>優先度<input type="text" name="priority" value="<?php echo GetPriority($_GET['id']);?>"></div>
-            <div>締め切り<input type="date" name="deadline" value="<?php echo GetDeadline($_GET['id']);?>"></div>
-            <div>担当者
-                <select name="user_id">
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                        <div class="box">
+                            <h1  class="title is-3">タスク編集</h1>
+                            <form class="content" action="update_task.php" method="POST">
+                                <div class="field">
+                                    <label class="label">タイトル</label>
+                                    <div class="control">
+                                        <input class="input" type="text" name="title" value="<?php echo GetTitle($_GET['id']);?>">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">進捗</label>
+                                    <div class="control">
+                                        <input class="input" type="number" name="progress" value="<?php echo GetProgress($_GET['id']);?>">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">優先度</label>
+                                    <div class="control">
+                                        <input class="input" type="number" name="priority" value="<?php echo GetPriority($_GET['id']);?>">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">締め切り</label>
+                                    <div class="control">
+                                        <input class="input" type="date" name="deadline" value="<?php echo GetDeadline($_GET['id']);?>">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">担当者</label>
+                                    <div class="control">
+                                        <div class="select"><select name="user_id">
 <?php
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $conn->set_charset("utf8");
@@ -34,10 +61,13 @@ while ($row = $res->fetch_assoc()) {
 }
 $conn->close();
 ?>
-                </select>
-            </div>
-            <div>ステータス
-                <select name="status_id">
+                                        </select></div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">ステータス</label>
+                                    <div class="control">
+                                        <div class="select"><select name="status_id">
 <?php
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $conn->set_charset("utf8");
@@ -48,11 +78,27 @@ while ($row = $res->fetch_assoc()) {
 }
 $conn->close();
 ?>
-                </select>
+                                        </select></div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">詳細</label>
+                                    <div class="control">
+                                        <textarea class="textarea" name="detail"><?php echo GetDetail($_GET['id']); ?></textarea>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="task_id" value="<?php echo $_GET['id']; ?>">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="button is-link" type="submit" value="追加">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>詳細<textarea name="detail"><?php echo GetDetail($_GET['id']); ?></textarea></div>
-            <input type="hidden" name="task_id" value="<?php echo $_GET['id']; ?>">
-            <div><input type="submit" name="追加"></div>
-        </form>
+        </section>
+        
     </body>
 </html>
