@@ -3,33 +3,33 @@
 require_once('user.php');
 
 ?>
-<header class="nav">
-    <div class="nav-left">
-        <span class="nav-item">
-            <a href="menu.php">進捗どうですか</a>
-        </span>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+            <a href="menu.php" class="navbar-item">進捗どうですか</a>
     </div>
-    <div class="nav-right">
+    <div class="navbar-menu">
+        <div class="navbar-end">
         <?php
 if ($_SESSION == NULL || !array_key_exists('ID', $_SESSION)) {
-    echo '<span class="nav-item">';
+    echo '<div class="navbar-item">';
+    echo '<span class="icon">';
     echo '<a href="login_user_form.php" class="fa fa-user">ログイン</a>';
     echo '</span>';
+    echo '</div>';
 }
 else if (!$_SESSION['MANAGER']){
-    echo '<span class="nav-item">';
+    echo '<div class="navbar-item">';
     echo GetUserName($_SESSION['ID']) . 'さん';
-    echo '</span>';
-    echo '<span class="nav-item">';
-    echo '<a href="update_user_form.php">ユーザ設定</a>';
-    echo '</span>';
+    echo '</div>';
+    echo '<a href="update_user_form.php" class="navbar-item">ユーザ設定</a>';
 }
 else
 {
-    echo '<span class="nav-item">';
+    echo '<div class="navbar-item">';
     echo '管理者としてログイン中';
-    echo '</span>';
+    echo '</div>';
 }
             ?>
+        </div>
     </div>
-</header>
+</nav>
